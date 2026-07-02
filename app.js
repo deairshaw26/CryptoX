@@ -71,6 +71,7 @@ function enterApp(user, isNew) {
     .slice(0, 2)
     .toUpperCase();
   signedIn = true;
+  localStorage.setItem("cryptox_session", JSON.stringify(user));
   document.getElementById("authScreen").classList.add("hidden");
   document.getElementById("meCard").innerHTML =
     `<div class="av sm" style="background:${ME.grad}">${ME.av}</div>
@@ -88,6 +89,7 @@ function enterApp(user, isNew) {
 async function signOut() {
   await AuthAPI.signOut();
   signedIn = false;
+  localStorage.removeItem("cryptox_session");
   document.getElementById("authScreen").classList.remove("hidden");
   document.getElementById("siUser").value = "";
   document.getElementById("siPass").value = "";
@@ -95,10 +97,17 @@ async function signOut() {
   showToast("Signed out");
 }
 
-/* Restore session if the backend has one (demo backend returns null) */
+/* Restore session from localStorage */
 async function restoreSession() {
-  const user = await AuthAPI.currentUser();
-  if (user) enterApp(user);
+  const saved = localStorage.getItem("cryptox_session");
+  if (saved) {
+    try {
+      const user = JSON.parse(saved);
+      enterApp(user);
+    } catch (e) {
+      localStorage.removeItem("cryptox_session");
+    }
+  }
 }
 
 /* ===== MONETIZATION ===== */
