@@ -37,6 +37,9 @@
           >
             Register
           </button>
+          <button class="auth-tab" id="atForgot" onclick="authTab('forgot')">
+            Reset Password
+          </button>
         </div>
 
         <form
@@ -102,6 +105,39 @@
           <div class="auth-err" id="rgErr"></div>
           <button class="post-btn auth-submit" type="submit">
             Create Account
+          </button>
+        </form>
+
+        <form
+          id="forgotForm"
+          class="auth-form"
+          style="display: none"
+          onsubmit="return doForgotPassword(event);"
+        >
+          <label>Email address</label>
+          <input
+            id="fpEmail"
+            type="email"
+            placeholder="Enter your email"
+            autocomplete="email"
+          />
+          <label>New password (6+ characters)</label>
+          <input
+            id="fpPass"
+            type="password"
+            placeholder="Create a new password"
+            autocomplete="new-password"
+          />
+          <label>Confirm password</label>
+          <input
+            id="fpPassConfirm"
+            type="password"
+            placeholder="Confirm your password"
+            autocomplete="new-password"
+          />
+          <div class="auth-err" id="fpErr"></div>
+          <button class="post-btn auth-submit" type="submit">
+            Reset Password
           </button>
         </form>
       </div>

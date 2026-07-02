@@ -23,12 +23,18 @@ function authTab(t) {
   document
     .getElementById("atRegister")
     .classList.toggle("active", t === "register");
+  document
+    .getElementById("atForgot")
+    .classList.toggle("active", t === "forgot");
   document.getElementById("signinForm").style.display =
     t === "signin" ? "flex" : "none";
   document.getElementById("registerForm").style.display =
     t === "register" ? "flex" : "none";
+  document.getElementById("forgotForm").style.display =
+    t === "forgot" ? "flex" : "none";
   document.getElementById("siErr").textContent = "";
   document.getElementById("rgErr").textContent = "";
+  document.getElementById("fpErr").textContent = "";
 }
 
 async function doSignin(e) {
@@ -58,6 +64,31 @@ async function doRegister(e) {
     return false;
   }
   enterApp(res.user, true);
+  return false;
+}
+
+async function doForgotPassword(e) {
+  e.preventDefault();
+  const email = document.getElementById("fpEmail").value;
+  const password = document.getElementById("fpPass").value;
+  const confirm = document.getElementById("fpPassConfirm").value;
+
+  if (password !== confirm) {
+    document.getElementById("fpErr").textContent = "Passwords do not match";
+    return false;
+  }
+
+  const res = await AuthAPI.resetPassword(email, password);
+  if (!res.ok) {
+    document.getElementById("fpErr").textContent = res.error;
+    return false;
+  }
+
+  document.getElementById("fpEmail").value = "";
+  document.getElementById("fpPass").value = "";
+  document.getElementById("fpPassConfirm").value = "";
+  showToast('<b class="g">Password reset successful!</b> You can now sign in.');
+  authTab("signin");
   return false;
 }
 

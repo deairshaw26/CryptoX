@@ -111,6 +111,42 @@ const AuthAPI = {
       }, 100);
     });
   },
+
+  // Reset password
+  async resetPassword(email, newPassword) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Validation
+        if (!email || !newPassword) {
+          resolve({ ok: false, error: "Email and password are required" });
+          return;
+        }
+        if (newPassword.length < 6) {
+          resolve({
+            ok: false,
+            error: "Password must be at least 6 characters",
+          });
+          return;
+        }
+
+        // Find user by email
+        const user = this.users[email];
+        if (!user) {
+          // Security: don't reveal if email exists
+          resolve({
+            ok: false,
+            error: "Email not found or does not have an account",
+          });
+          return;
+        }
+
+        // Update password
+        user.password = newPassword;
+        this.users[email] = user;
+        resolve({ ok: true });
+      }, 400);
+    });
+  },
 };
 
 // Initialize auth
