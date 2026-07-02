@@ -4,39 +4,19 @@
 ========================================================= */
 
 const AuthAPI = {
-  // Demo user for testing
-  demoUser: {
-    id: "user_demo",
-    name: "Deair",
-    handle: "deair_x",
-    email: "deair@cryptox.io",
-    password: "moon123",
-  },
-
   // In-memory storage
   users: {},
   currentSession: null,
 
   // Initialize
   init() {
-    this.users[this.demoUser.email] = this.demoUser;
+    // Start with empty user database
   },
 
   // Sign in
   async signIn(emailOrHandle, password) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        // Demo account
-        if (
-          (emailOrHandle === this.demoUser.email ||
-            emailOrHandle === "@" + this.demoUser.handle) &&
-          password === this.demoUser.password
-        ) {
-          this.currentSession = { ...this.demoUser };
-          resolve({ ok: true, user: this.currentSession });
-          return;
-        }
-
         // Check registered users
         for (let email in this.users) {
           const user = this.users[email];
