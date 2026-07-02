@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CryptoX — Where Crypto Investors Talk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- AUTH SCREEN -->
+    <div class="auth" id="authScreen">
+      <div class="auth-card">
+        <div class="logo" style="padding: 0 0 6px; font-size: 24px">
+          CRYPTO<b>X</b>
+        </div>
+        <p class="auth-sub">
+          Where crypto investors talk. Sign in or create an account to join the
+          feed.
+        </p>
+        <div class="auth-tabs">
+          <button
+            class="auth-tab active"
+            id="atSignin"
+            onclick="authTab('signin')"
+          >
+            Sign In
+          </button>
+          <button
+            class="auth-tab"
+            id="atRegister"
+            onclick="authTab('register')"
+          >
+            Register
+          </button>
+        </div>
+
+        <form
+          id="signinForm"
+          class="auth-form"
+          onsubmit="return doSignin(event);"
+        >
+          <label>Email or @handle</label>
+          <input
+            id="siUser"
+            type="text"
+            placeholder="you@email.com or @handle"
+            autocomplete="username"
+          />
+          <label>Password</label>
+          <input
+            id="siPass"
+            type="password"
+            placeholder="Your password"
+            autocomplete="current-password"
+          />
+          <div class="auth-err" id="siErr"></div>
+          <button class="post-btn auth-submit" type="submit">Sign In</button>
+          <div class="auth-hint">
+            Demo account: <b>deair@cryptox.io</b> · password <b>moon123</b>
+          </div>
+        </form>
+
+        <form
+          id="registerForm"
+          class="auth-form"
+          style="display: none"
+          onsubmit="return doRegister(event);"
+        >
+          <label>Display name</label>
+          <input
+            id="rgName"
+            type="text"
+            placeholder="e.g. Deair"
+            maxlength="30"
+          />
+          <label>@handle</label>
+          <input
+            id="rgHandle"
+            type="text"
+            placeholder="e.g. deair_x"
+            maxlength="20"
+          />
+          <label>Email</label>
+          <input
+            id="rgEmail"
+            type="email"
+            placeholder="you@email.com"
+            autocomplete="email"
+          />
+          <label>Password (6+ characters)</label>
+          <input
+            id="rgPass"
+            type="password"
+            placeholder="Create a password"
+            autocomplete="new-password"
+          />
+          <div class="auth-err" id="rgErr"></div>
+          <button class="post-btn auth-submit" type="submit">
+            Create Account
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Ticker tape -->
+    <div class="tape"><div class="tape-track" id="tape"></div></div>
+
+    <div class="app">
+      <!-- LEFT NAV -->
+      <nav class="nav">
+        <div class="logo">CRYPTO<b>X</b></div>
+        <button
+          class="nav-item active"
+          data-view="home"
+          onclick="setView('home')"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M3 10.5 12 3l9 7.5V21H3z" />
+          </svg>
+          <span>Home</span>
+        </button>
+        <button
+          class="nav-item"
+          data-view="explore"
+          onclick="setView('explore')"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+          <span>Explore</span>
+        </button>
+        <button
+          class="nav-item"
+          data-view="notifications"
+          onclick="setView('notifications')"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+          </svg>
+          <span>Alerts</span><span class="badge" id="alertBadge">3</span>
+        </button>
+        <button
+          class="nav-item"
+          data-view="watchlist"
+          onclick="setView('watchlist')"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"
+            />
+          </svg>
+          <span>Watchlist</span>
+        </button>
+        <button
+          class="nav-item"
+          data-view="earnings"
+          onclick="setView('earnings')"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path
+              d="M12 7v10M9.5 9.5c0-1 1-1.8 2.5-1.8s2.5.8 2.5 1.8-1 1.5-2.5 1.8-2.5.8-2.5 1.9 1 1.8 2.5 1.8 2.5-.8 2.5-1.8"
+            />
+          </svg>
+          <span>Earnings</span>
+        </button>
+        <button
+          class="nav-item"
+          data-view="profile"
+          onclick="openProfile('me')"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" />
+          </svg>
+          <span>Profile</span>
+        </button>
+        <button class="post-btn" onclick="focusComposer()">Post a Call</button>
+        <button class="nav-item" onclick="signOut()">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <path d="M16 17l5-5-5-5" />
+            <path d="M21 12H9" />
+          </svg>
+          <span>Sign Out</span>
+        </button>
+        <div class="me-card" id="meCard" onclick="openProfile('me')">
+          <div
+            class="av sm"
+            style="background: linear-gradient(135deg, #f5b841, #e4884f)"
+          >
+            DX
+          </div>
+          <div class="who">
+            <div>Deair</div>
+            <div class="h">@deair_x</div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- CENTER FEED -->
+      <main class="feed" id="feedCol"></main>
+
+      <!-- RIGHT RAIL -->
+      <aside class="rail">
+        <input
+          class="search"
+          id="searchBox"
+          placeholder="Search posts, $tickers, people…"
+          oninput="onSearch(this.value)"
+        />
+        <div class="card">
+          <h3><span class="dot"></span>Live Market</h3>
+          <div id="mktList"></div>
+        </div>
+        <div class="card">
+          <h3>Trending on CryptoX</h3>
+          <div id="trendList"></div>
+        </div>
+        <div class="card">
+          <h3>Your Portfolio</h3>
+          <div class="pf-total mono" id="pfTotal"></div>
+          <div class="pf-change mono up" id="pfChange"></div>
+          <div class="pf-bar" id="pfBar"></div>
+          <div class="pf-legend" id="pfLegend"></div>
+        </div>
+        <div class="card">
+          <h3>Traders to Follow</h3>
+          <div id="whoList"></div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
