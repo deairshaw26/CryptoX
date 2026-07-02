@@ -65,6 +65,7 @@ const AuthAPI = {
           handle,
           email,
           password,
+          followersN: 0,
         };
         this.users[email] = user;
         this.currentSession = { ...user };

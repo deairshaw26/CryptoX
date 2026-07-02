@@ -10,7 +10,7 @@ const ME = {
   verified: true,
   bio: "Web dev student · builder of engines and empires · $BTC $ETH long-term, degen on weekends.",
   joined: "Mar 2025",
-  followersN: 1842,
+  followersN: 0,
 };
 
 /* ===== AUTH UI (backend-agnostic — see auth.js) ===== */
@@ -101,6 +101,8 @@ function enterApp(user, isNew) {
     .join("")
     .slice(0, 2)
     .toUpperCase();
+  ME.followersN = 0;
+  demoBoost = { followers: 0, engagement: 0 };
   signedIn = true;
   localStorage.setItem("cryptox_session", JSON.stringify(user));
   document.getElementById("authScreen").classList.add("hidden");
