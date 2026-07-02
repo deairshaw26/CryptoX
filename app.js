@@ -176,13 +176,13 @@ const USERS = {
 };
 
 const MARKET = [
-  { sym: "BTC", name: "Bitcoin", price: 104382.55, chg: +2.41 },
-  { sym: "ETH", name: "Ethereum", price: 5211.08, chg: +3.87 },
-  { sym: "SOL", name: "Solana", price: 241.66, chg: -1.92 },
-  { sym: "XRP", name: "XRP", price: 2.84, chg: +0.63 },
-  { sym: "DOGE", name: "Dogecoin", price: 0.3121, chg: +8.44 },
-  { sym: "AVAX", name: "Avalanche", price: 47.1, chg: -3.15 },
-  { sym: "LINK", name: "Chainlink", price: 29.55, chg: +1.28 },
+  { sym: "BTC", name: "Bitcoin", price: 60168, chg: +2.68 },
+  { sym: "ETH", name: "Ethereum", price: 1616.39, chg: +2.8 },
+  { sym: "SOL", name: "Solana", price: 77.81, chg: +4.9 },
+  { sym: "XRP", name: "XRP", price: 1.055, chg: +1.42 },
+  { sym: "DOGE", name: "Dogecoin", price: 0.072437, chg: +1.61 },
+  { sym: "AVAX", name: "Avalanche", price: 6.67, chg: +0.66 },
+  { sym: "LINK", name: "Chainlink", price: 7.44, chg: +3.41 },
 ];
 
 const PORTFOLIO = [
